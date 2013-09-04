@@ -1,45 +1,55 @@
 source 'https://rubygems.org'
+ruby '2.0.0'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+# Default Gems
 gem 'rails', '4.0.0'
-
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
-
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
-
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
-# Use jquery as the JavaScript library
+gem 'sass-rails', '~> 4.0.0' # SASS for Asset Pipeline
+gem 'uglifier', '>= 1.3.0' # Javascript compressor
+gem 'coffee-rails', '~> 4.0.0' # Use coffeescript
 gem 'jquery-rails'
-
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
+gem 'bcrypt-ruby', '~> 3.0.0' # Can use ActiveModel has_secure_password
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+# Non-Default Gems
 
-# Use unicorn as the app server
-# gem 'unicorn'
+# Foundation Gems
+gem 'compass-rails', github: 'milgner/compass-rails', branch: 'rails4'
+#gem 'compass-rails' # you need this or you get an err
+gem 'zurb-foundation', '~> 4.0.0'
 
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
+gem 'faker'
+gem 'will_paginate'
+# Trying out foundation... (At least until Bootstrap 3 v.final)
+# gem 'bootstrap-sass' # Not using until Bootstrap 3 supported 
+# gem 'bootstrap-will_paginate'
+gem "font-awesome-rails"
 
-# Use debugger
-# gem 'debugger', group: [:development, :test]
+group :development, :test do
+  gem 'sqlite3'
+  gem 'rspec-rails' # Test framework, instead of Test::Unit
+  gem 'guard-rspec' # Automatically runs tests, needs gem 'growl' below in test
+  # Spork is not quite Rails 4.0 ready yet, wait a bit to incorporate!
+  #gem 'spork-rails' # Spork is testing server for fast startup
+  #gem 'guard-spork' # Dunno
+  #gem 'childprocess' # Dunno
+  gem 'debugger'
+end
+
+group :test do
+  gem 'selenium-webdriver' # Capybara needs it?
+  gem 'capybara' # Interact w/ HTML programatically
+  gem 'growl' # Notify when files change
+  gem 'factory_girl_rails' # Factories for mock objects in testing
+end
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor' # Needed for Heroku integration
+  gem 'unicorn' # Use unicorn instead of Webrick in production
+end
